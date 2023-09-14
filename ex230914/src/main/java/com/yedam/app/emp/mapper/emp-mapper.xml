@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+	<!-- 전체조회 -->
+	<select id="selectEmpAllList" resultType="EmpVO">
+		<!--  c_id : cId -> setCId : cid 최소 두 자 이상씩 -->
+		SELECT employee_id
+				, first_name
+				, last_name
+				, email
+				, phone_number
+				, hire_date
+				, job_id
+				, salary
+				, commission_pct
+				, manager_id
+				, department_id
+		FROM employees
+		<where>
+			<if test="managerId > 0">
+				manager_id = #{managerId}
+			</if>
+			<if test="departmentId > 0">
+				department_id = #{departmentId}
+			</if>
+		</where>
+		ORDER BY employee_id
+	</select>
+		
+	<!-- 단건조회 -->
+	<select id="selectEmpInfo" resultType="EmpVO">
+		SELECT employee_id
+				, first_name
+				, last_name
+				, email
+				, phone_number
+				, hire_date
+				, job_id
+				, salary
+				, commission_pct
+				, manager_id
+				, department_id
+		FROM employees
+		<!-- preparedStatement 타입의 결정 # -->
+		<!-- statement 타입을 맞춰줌 $ -->
+		WHERE employee_id = #{employeeId}
+	</select>
+	
+	<!-- 등록 -->
+	<!-- selectKey 값은 parameterType의 field로 감 -->
+	<!-- order는 실행순서 -->
+	<insert id="insertEmpInfo" parameterType="EmpVO">
+		<selectKey keyProperty="employeeId"
+				   resultType="int"
+				   order="BEFORE">
+			SELECT NVL(MAX(employee_id), 0) + 1
+			FROM employees 				
+		</selectKey>
+		insert into employees
+			(
+				employee_id    <!-- 퍼스트네임이 널이 아니고 공백이 아닐 경우 -->
+				<if test="firstName != null and !firstName.equals('')">
+				, first_name
+				</if>
+				, last_name
+				, email
+				, hire_date
+				, job_id
+				<if test="departmentId > 0">
+				, department_id
+				</if>
+			)
+		values
+			(
+				#{employeeId}
+				<if test="firstName != null and !firstName.equals('')">
+				, #{firstName}
+				</if>
+				, #{lastName}
+				, #{email}
+				<choose>
+					<when test="hireDate == null">
+						, sysdate
+					</when>
+					<otherwise>
+						, #{hireDate}
+					</otherwise>
+				</choose>
+				, #{jobId}
+				<if test="departmentId > 0">
+				, #{departmentId}
+				</if>
+			)
+	</insert>
+	
+	<!-- 수정 : 급여를 정해진 비율로 인상 -->
+	<!-- 매개변수 두개 이상인 경우 parameterType를 생략함 -->
+	<update id="updateEmpSal">
+	
+	</update>
+	
+	<!-- 수정 : 사원 정보 수정 -->
+	<update id="updateEmpInfo" parameterType="EmpVO">
+	
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteEmpInfo" parameterType="int">
+	
+	</delete>
+</mapper>

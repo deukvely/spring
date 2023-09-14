@@ -1,0 +1,106 @@
+sts 누르고 Looking for Spring Tool Suite 3? 제일 밑에 누름
+3.9.18 제일 최신 버전 다운로드
+
+
+
+버전이 다를 경우 ini 파일에 제일 위에 적음
+-vm
+C:\Program Files\Java\jdk-11\bin\javaw.exe
+
+들어가서 제너럴 utf-8 html, css jsp utf-8로 바꾸기
+VMWare 삭제
+서버 톰켓 9.0
+
+롬복 압축파일일 경우 cmd로 풀어야 됨
+파일이 있는 폴더에서 cmd
+java -jar lombok-1.18.28.jar
+번들 sts.exe 찾아가기
+
+ORM 플러그인
+
+maven project 만들고
+build path - 컨피규어 빌드 패스
+project Facets - 자바 버전 세팅이 되어있는지 보는 곳
+
+spring 관련 정보는 pom.xml에서
+
+
+https://mvnrepository.com/
+spring-context 5.3.29 복사해서 넣기
+<dependency></dependencies> 사이에 넣기
+ppt에 있는 빌드 넣기
+메이븐 업데이트
+메이븐 인스톨
+
+src/main/resources new 스프링 빈 컨피규어 누르고 namespaces
+applicationContext.xml - next - beans, context 체크하고 피니쉬
+<bean id="" class=""> bean으로 표현할 때는 class에 패키지명.클래스명
+id는 부르기 쉬운 이름? 느낌
+
+----------------------------------------
+spring legacy project
+템블릿 mvc project
+com.yedam.app 적고 피니시
+실행해보기(오류있나 없나)
+기본세팅 시작
+web.xml 2.5 버전을 3.1버전으로 바꾸기 ppt 3_6장
+버전 바꾸기 자바 11 다 바꾸면 됨
+src/main/resources log4j.xml -
+3_7장 보고 바꾸기
+pom.xml - <properties> - properties 안에 java-version을 복사
+plugin 1.6 버전 인 곳을 ${java-version} 이렇게 바꾸기
+3_8장 따라하기 - javax.servlet-api servlet이랑 바꾸기
+오른쪽 3개 복사 - junit 위에S 복사
+메이븐 업데이트하고 실행하고 확인하기
+pom.xml 3_9장 세개 다 복사 spring-jdbc 오타 (spring)
+-- 빈을 등록하는 방법
+root-contex.xml - 3_9장 bean 두개 다 복사하기
+                - namespaces에서 추가
+				- <context:property-placeholder  location="classpath:config/db.properties"> 추가 -제일 위에다가 ** 				
+src/main/resources - 폴더 config.folder 만들고 안에다 db.properties.file을 만듬
+driverName=oracle.jdbc.driver.OracleDriver
+dbUrl=jdbc:oracle:thin:@127.0.0.1:1521:xe
+dbId=hr
+dbPwd=1234
+만듬 그리고 root-contex에서 values="${드라이버이름으로 다 바꿈}"
+3_10장에 마이바티스 왼쪽 두개 ojdbc8 뒤에 복사
+root-contex - 3_10장 오른쪽 bean만 아래에 복사 업데이트하고 네임스패이스 마이바티스 체크
+<mybatis-spring:scan base-package="com.yedam.app.**.mapper"/> 제일 밑에 적음
+기본세팅 끝--
+
+mybatis 홈페이지 getting started - 
+window = preferences - templates 검색
+xml - xml files ediotor - templates - new
+context - new xml로 바꾸기 name Mybatis Config
+mybatis 홈페이지 - Building SqlSessionFactory from XML - config.dtd
+context - new xml로 바꾸기 name Mybatis Mapper
+mybatis 홈페이지 - Exploring Mapped SQL Statements - mapper.dtd
+config 폴더에 mybatis-config.xml 만들고 next 누르고 config 만들어 놓은거 클릭
+컨트롤 스페이스 눌러서 configuration 만들고 settings, typeAliases, typeHandler 세개를 설정해야 됨
+<settings><setting name="mapUnderscoreToCamelCase" value="true"/>
+<setting name="jdbcTypeForNull" value="null"/>
+typeAliases
+	<package name="com.yedam.app"/>
+/ typeHandlers
+	<typeHandler javaType="java.sql.Date" handler="org.apache.ibatis.type.DateTypeHandler"/>
+root-context에 이 값을 건내줘야 됨
+mybatis에 <property name="configLocation" value="classpath:config/mybatis-config.xml" />
+
+순서 EmpVO -> Mapper Interface -> emp-mapper.xml(-mapper.xml로 해야 읽어들일 수 있음)
+emo-mapper.xml next하고 mapper 체크 피니쉬
+
+------- sql-log 
+3_25 dependency 복사 pom.xml 제일 밑에 붙여넣기
+3-25 src/main.resources 에 파일 추가 log4jdbc.log4j2.properties
+3-25 밑에꺼 복사 넣기 공백 주의**
+driverClassName 변경
+db.properties 내용 변경 3-26
+log4j.xml -  3-27 오른쪽 다섯개 복사 root 위에 붙여넣기
+
+
+깃허브에서 새 레퍼지토리 만들고 이그노어 - 자바로 바꾸고
+메타데이터, 서버를 바탕화면에 잘라내고
+복사한 뒤 데스크탑에서 파일 - 클론 프로젝트에서 경로에 맞추고
+깃이그노어에 .metadata/
+Servers/ 이걸 적고 저장
+왜? 한번만 올리면 되는데 커밋할 때마다 올리면 안 됨
