@@ -98,16 +98,42 @@
 	<!-- 수정 : 급여를 정해진 비율로 인상 -->
 	<!-- 매개변수 두개 이상인 경우 parameterType를 생략함 -->
 	<update id="updateEmpSal">
-	
+		UPDATE employees
+		SET salary = salary * (1 + #{raise} / 100)
+		WHERE employee_id = #{empId}
 	</update>
 	
 	<!-- 수정 : 사원 정보 수정 -->
+	<!-- 1) 단건 조회 선행되는 경우 모든 항목에 데이터가 존재 -> 전체 업데이트 -->
+	<!-- 2) 개별 정보 수정일 경우 Dynamic SQL 사용 -->
+	<!-- 최소 하나의 컬럼은 남아있을 수 있도록 처리함, set절은 하나의 컬럼은 남게 함 -->
 	<update id="updateEmpInfo" parameterType="EmpVO">
-	
+		UPDATE employees
+		<set>
+			<if test="firstName != null and !firstName.equals('')">
+				first_name = #{firstName},
+			</if>
+			<if test="email != null and !email.equals('')">
+				email = #{email},
+			</if>
+			<!-- 최소 하나의 컬럼은 salary 둘 중 하나 -->
+			<!-- mybatis 기호 <= 은 lte로 쓰임 -->
+			<if test="salary lte 0">
+				salary = 1000
+			</if>
+			<!-- 기호 >는 gt로 쓰임 -->
+			<if test="salary gt 0">
+				salary = #{salary}
+			</if>
+		</set>
+		WHERE employee_id = #{employeeId}
 	</update>
 	
 	<!-- 삭제 -->
 	<delete id="deleteEmpInfo" parameterType="int">
-	
+		DELETE FROM employees
+		WHERE employee_id = #{eid}
+		<!-- 하나의 매개변수면 이름이 달라도 거기에 들어간다 -->
+		<!-- param은 이름이 중요 이름이 달라지면 안 된다 -->
 	</delete>
 </mapper>

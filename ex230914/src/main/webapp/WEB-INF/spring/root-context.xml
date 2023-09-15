@@ -6,30 +6,7 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
-	
+	<!-- root-context는 컨테이너를 구성하는 설정 -->
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:property-placeholder location="classpath:config/db.properties"/>
 	
-	<!-- datasource connection pool -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="${driverName}" />
-		<property name="jdbcUrl" value="${dbUrl}" />
-		<property name="username" value="${dbId}" />
-		<property name="password" value="${dbPwd}" />
-	</bean>
-
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<constructor-arg ref="hikariConfig" />
-	</bean>
-	
-	<!-- mybatis  SqlSessionFactory -->
-	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
-		<!-- 이것은 선택사항 / mapper xml 파일을 처리 한 패키지에 두지 않고 따로 둘 때 사용 -->
-		<property name="mapperLocations" value="classpath*:com/yedam/app/**/mapper/*-mapper.xml"/>
-	</bean>
-	
-	<!-- 얘는 인터페이스만 처리 -->
-	<mybatis-spring:scan base-package="com.yedam.app.**.mapper"/>
 </beans>

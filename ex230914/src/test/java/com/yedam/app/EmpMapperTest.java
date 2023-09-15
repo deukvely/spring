@@ -21,14 +21,14 @@ public class EmpMapperTest {
 	@Autowired
 	EmpMapper empMapper;
 	
-	@Test
+	//@Test
 	public void selectAllEmp() {
 		// 전체 조회
 		List<EmpVO> empList = empMapper.selectEmpAllList(null);
 		assertNotNull(empList);
 	}
 	
-	@Test
+	//@Test
 	public void selectEmpInfo() {
 		// 단건 조회
 		EmpVO empVO = new EmpVO();
@@ -38,7 +38,7 @@ public class EmpMapperTest {
 		EmpVO findVO = empMapper.selectEmpInfo(empVO);
 		assertEquals(findVO.getLastName(), "King");
 	}
-	@Test
+	//@Test
 	public void insertEmpInfo() {
 		// 등록
 		EmpVO empVO = new EmpVO();
@@ -52,4 +52,33 @@ public class EmpMapperTest {
 		empMapper.insertEmpInfo(empVO);
 		assertNotEquals(empVO.getEmployeeId(), 0);
 	}
+	
+	//@Test
+	public void updateEmpSal() {
+		// 급여 갱신
+		int result = empMapper.updateEmpSal(100, 10);
+		assertEquals(result, 1);
+	}
+	
+	//@Test
+	public void updateEmpInfo() {
+		// 사원 정보 수정
+		EmpVO empVO = new EmpVO();
+		empVO.setEmployeeId(207);
+		
+		empVO.setEmail("kang@naver.com");
+		empVO.setSalary(6000);
+		
+		int result = empMapper.updateEmpInfo(empVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void deleteEmpInfo() {
+		// 사원 삭제
+		int result = empMapper.deleteEmpInfo(207);
+		assertEquals(result, 1);
+	}
+	
+	
 }

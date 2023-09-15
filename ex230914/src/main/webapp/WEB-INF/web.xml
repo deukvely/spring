@@ -4,17 +4,20 @@
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-name>contextConfigLocation</param-name><!-- 루트 정보를 가지고 있는 애 -->
+		<param-value>/WEB-INF/spring/*-context.xml</param-value>
+									<!-- root 말고 아스타로 모든 걸 읽어드림 -->
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
-	<listener>
+	<listener><!-- 루트 정보를 수행하는 애 루트 컨테이너는 context-param, listener -->
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	<!-- 루트 정보 끝 -->
+	
+	<!-- 서블릿 컨테이너 -->
 	<!-- Processes application requests -->
-	<servlet>
+	<servlet><!-- 메인 동작하게 하는 애 동작하면서 init-param을 특정 참고 -->
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -23,10 +26,25 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
-	<servlet-mapping>
+	<!-- 서블릿 컨테이너 끝 -->	
+	
+	<servlet-mapping><!-- 경로 매핑하는 애 -->
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Filter List 걸어야 한국말로 나옴 아니면 깨짐 -->
+	 <filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

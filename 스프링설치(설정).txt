@@ -97,6 +97,14 @@ driverClassName 변경
 db.properties 내용 변경 3-26
 log4j.xml -  3-27 오른쪽 다섯개 복사 root 위에 붙여넣기
 
+특정목적이 되는 애들은 분류시킴 datasource-context.xml, mybatis-context.xml 등등
+spring - new spring bean configration file - database-context.xml - next - beans 체크하고 피니씨
+root-context.xml 빈들 ctrl-x 해서 붙이기
+
+
+
+
+
 
 깃허브에서 새 레퍼지토리 만들고 이그노어 - 자바로 바꾸고
 메타데이터, 서버를 바탕화면에 잘라내고
