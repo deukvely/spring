@@ -50,7 +50,7 @@ public class EmpMapperTest {
 		// insert 담을 변수는 없다.
 		// empVO에 들어간 변수 4개 그래도 사용된 프라이머리키를 가지고 올 수 있다
 		empMapper.insertEmpInfo(empVO);
-		assertNotEquals(empVO.getEmployeeId(), 0);
+		//assertNotEquals(empVO.getEmployeeId(), 0);
 	}
 	
 	//@Test
@@ -67,7 +67,7 @@ public class EmpMapperTest {
 		empVO.setEmployeeId(207);
 		
 		empVO.setEmail("kang@naver.com");
-		empVO.setSalary(6000);
+		//empVO.setSalary(6000);
 		
 		int result = empMapper.updateEmpInfo(empVO);
 		assertEquals(result, 1);

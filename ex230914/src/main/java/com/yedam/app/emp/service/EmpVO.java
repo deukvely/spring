@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class EmpVO {
-	private int employeeId;
+	private Integer employeeId;
 	// equals는 공백
 	private String firstName;
 	private String lastName;
@@ -14,9 +14,9 @@ public class EmpVO {
 	private String phoneNumber;
 	private Date hireDate;
 	private String jobId;
-	private double salary;
-	private double commissionPct;
+	private Double salary;
+	private Double commissionPct;
 	// int는 널일 가질 수 없음
-	private int managerId;
-	private int departmentId;
+	private Integer managerId;
+	private Integer departmentId;
 }
