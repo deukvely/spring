@@ -1,5 +1,7 @@
 package com.yedam.app.emp.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,8 +58,8 @@ public class EmpMngController {
 		}else {
 			result = "정상적으로 등록되었습니다. \n등록된 사원의 사원번호는 " + empId + "입니다.";
 		}
-		attr.addAttribute("type", "insert");
-		attr.addFlashAttribute("result", result);
+		attr.addAttribute("type", "insert"); // type은 호출 못함 변수가 아님
+		attr.addFlashAttribute("result", result); // 얘는 변수로 호출할 수 있음
 		// redirect는 컨트롤러를 호출하는 것, jsp file로 redirect 하지 않음
 		return "redirect:empList?type=insert";
 	}
@@ -81,8 +84,21 @@ public class EmpMngController {
 		return empService.updateEmp(empVO);
 	}
 	
-	// 삭제 - 단건삭제
+	// 삭제 - 단건삭제 - ajax
+	@GetMapping("empDelete") // 맵을 통째로 넘김
+	@ResponseBody                           // 한 건 보내니깐 json으로 안 바꾸고 이런 방식도 있다.
+	public Map<String, Object> empInfoDelete(@RequestParam Integer employeeId){ // Integer는 값이 없으면 null로 들어감
+		List<Integer> list = new ArrayList<>(); // 리스트에 하나 담아서 보낸다.
+		list.add(employeeId);
+		return empService.deleteEmp(list); // 결과를 통째로 넘긴다
+	}
 	
-	
-	// 삭제 - 선택삭제(동시)
+	// 삭제 - 선택삭제(동시) : ajax // 배열을 처리하는 건 json(ajax)이 편함
+	@PostMapping("empDelete")
+	@ResponseBody
+	public boolean empListDelete(@RequestBody List<Integer> empList){
+		Map<String, Object> result = empService.deleteEmp(empList);
+		return (boolean)result.get("result");
+		// 성공 여부만 필요함 후속 작업을 할때는 전체를 넘겨주던가 
+	}
 }
