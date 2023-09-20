@@ -78,7 +78,7 @@ mybatis 홈페이지 - Exploring Mapped SQL Statements - mapper.dtd
 config 폴더에 mybatis-config.xml 만들고 next 누르고 config 만들어 놓은거 클릭
 컨트롤 스페이스 눌러서 configuration 만들고 settings, typeAliases, typeHandler 세개를 설정해야 됨
 <settings><setting name="mapUnderscoreToCamelCase" value="true"/>
-<setting name="jdbcTypeForNull" value="null"/>
+<setting name="jdbcTypeForNull" value="NULL"/>
 typeAliases
 	<package name="com.yedam.app"/>
 / typeHandlers
