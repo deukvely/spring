@@ -22,3 +22,7 @@ insert into tbl_board(bno, title, contents, writer) values ('002', 'Hello, World
 commit;
 select * from tbl_board where bno = '001' or bno = '001' and writer = 'Any';
 select * from tbl_board;
+
+update tbl_board
+set image = 'potter.png'
+where bno = '002';

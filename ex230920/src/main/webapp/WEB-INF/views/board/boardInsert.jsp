@@ -26,8 +26,8 @@
 				<td><input type="text" name="image"></td>	
 			</tr>
 		</table>
-	<button type="submit">등록</button>
-	<button type="button" onclick="location.href='boardList'">목록</button>
+		<button type="submit">등록</button>
+		<button type="button" onclick="location.href='boardList'">목록</button>
 	</form>
 	<script type="text/javascript">
 		$('[name="insertForm"]').on('click', function(e){

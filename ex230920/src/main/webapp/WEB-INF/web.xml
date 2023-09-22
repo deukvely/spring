@@ -25,6 +25,13 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+		<multipart-config>
+			<location>C:\\Temp</location><!-- WAS가 읽어들이는 경로 그 경로에 없으면 읽지 못함 -->
+			<max-file-size>20971520</max-file-size><!-- 1MB * 20 -->
+			<max-request-size>41943040</max-request-size><!-- 40MB -->
+			<file-size-threshold>20971520</file-size-threshold><!-- 20MB -->
+		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>
