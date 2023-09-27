@@ -1,0 +1,31 @@
+new - Spring starter project 
+service url 주소 복사해서 크롬에 복붙
+홈페이지 - gradle - groovy - language - java
+2.7.16 - jar - 11
+demo 압축 풀고 import projects from folder or archive
+configure - 
+gradle - refresh gradle project
+
+
+
+
+
+src/main/resources - templates - view이고
+				   - static - 정적인 파일들
+application.properties - 저장되어 있는 bean들은 여기에다가
+src/main/java - DemoAplication.java - 메인메소드 - 
+@SpringBootApplication // 이 친구는 핵심인 친구 건들면 안 됨
+							Spring bead read, create 그 와 관련된 설정을 세팅
+
+new - Spring starter project
+type - maven packaging - jar 나머지는 똑같이
+artifact - app, package - com.yedam.app
+next - 2.7.16 
+developer tools - spring boot devtools, lombok 체크
+sql - spring data jdbc, mybatis framework, oracle driver 체크
+web - spring web
+template engines - thymeleaf 체크
+하고 피니시
+application.properties에다가 13페이지 복붙 중간에 복사하면서 공백 생김 엔터 누르기
+***패키지 이름에 맞게 바꾸기***
+application.java에 @MapperScan
