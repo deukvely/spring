@@ -5,9 +5,14 @@ import java.util.List;
 import com.yedam.java.book.service.BookVO;
 
 public interface BookMapper {
-	public List<BookVO> getBookList();
-	public BookVO getBook(BookVO bookVO);
-	public int insertBook(BookVO bookVO);
-	public int updateBook(BookVO bookVO);
-	public int deleteBook(int bookNo);
+	// 전체 조회
+	public List<BookVO> selectBookAll();
+	
+	// 단건조회 -> 북넘버 자동부여 : 예측
+	public Integer selectBookNo();
+	
+	// 등록
+	public int insertBookInfo(BookVO bookVO);
+	
+	
 }

@@ -6,43 +6,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.java.book.mapper.BookMapper;
+import com.yedam.java.book.mapper.RentMapper;
 import com.yedam.java.book.service.BookService;
 import com.yedam.java.book.service.BookVO;
+import com.yedam.java.book.service.RentVO;
+
 @Service
 public class BookServiceImpl implements BookService {
 	@Autowired
 	BookMapper bookMapper;
 	
+	@Autowired
+	RentMapper rentMapper;
+	
 	@Override
 	public List<BookVO> getBookList() {
-		List<BookVO> findList = bookMapper.getBookList();
-		return findList;
+		return bookMapper.selectBookAll();
 	}
 
 	@Override
-	public BookVO getBookInfo(BookVO bookVO) {
-		return bookMapper.getBook(bookVO);
+	public Integer getBookNextNo() {
+		return bookMapper.selectBookNo();
 	}
 
 	@Override
 	public int insertBookInfo(BookVO bookVO) {
-		int result = bookMapper.insertBook(bookVO);
-		
-		if(result == 1) {
-			return bookVO.getBookNo();
-		} else {
-			return -1;
-		}
+		return bookMapper.insertBookInfo(bookVO);
 	}
 
 	@Override
-	public int updateBookInfo(BookVO bookVO) {
-		return 0;
-	}
-
-	@Override
-	public int deleteBookInfo(int bookNo) {
-		return 0;
+	public List<RentVO> getRentStatusList() {
+		return rentMapper.selectRentStatus();
 	}
 
 }

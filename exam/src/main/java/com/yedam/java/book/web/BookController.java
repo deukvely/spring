@@ -1,7 +1,5 @@
 package com.yedam.java.book.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,27 +14,31 @@ public class BookController {
 	@Autowired
 	BookService bookService;
 	
-	@GetMapping("bookList")
-	public String bookList(Model model) {
-		List<BookVO> list = bookService.getBookList();
-		model.addAttribute("bookList", list);
-		return "book/bookList";
-	}
-	
-	@GetMapping("bookInfo")
-	public String bookInfo(BookVO bookVO, Model model) {
-		model.addAttribute("bookInfo", bookService.getBookInfo(bookVO));
-		return "book/bookInfo";
-	}
-	
+	// 도서등록 - 페이지 : GET
 	@GetMapping("bookInsert")
-	public String bookInsertForm() {
+	public String bookInsertForm(Model model) {
+		model.addAttribute("bNo", bookService.getBookNextNo());
 		return "book/bookInsert";
 	}
 	
+	// 도서등록 - 처리 : POST
 	@PostMapping("bookInsert")
 	public String bookInsertProcess(BookVO bookVO) {
 		bookService.insertBookInfo(bookVO);
 		return "redirect:bookList";
+	}
+	
+	// 도서목록조회 : GET
+	@GetMapping("bookList")
+	public String bookList(Model model) {
+		model.addAttribute("bookList", bookService.getBookList());
+		return "book/booklist";
+	}
+	
+	// 대여현황조회 : GET
+	@GetMapping("rentList")
+	public String rentList(Model model) {
+		model.addAttribute("rentList", bookService.getRentStatusList());
+		return "book/bookRentList";
 	}
 }

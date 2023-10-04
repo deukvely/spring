@@ -3,15 +3,15 @@ package com.yedam.java.book.service;
 import java.util.List;
 
 public interface BookService {
+	// 전제조회
 	public List<BookVO> getBookList();
 	
-	public BookVO getBookInfo(BookVO bookVO);
+	// 단건조회 : 북넘버
+	public Integer getBookNextNo();
 	
+	// 등록
 	public int insertBookInfo(BookVO bookVO);
 	
-	public int updateBookInfo(BookVO bookVO);
-	
-	public int deleteBookInfo(int bookNo);
-	
-	
+	// 대여현황 조회
+	public List<RentVO> getRentStatusList();
 }
